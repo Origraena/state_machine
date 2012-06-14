@@ -1,0 +1,12 @@
+
+= State Machine =
+
+Map implementation which uses the state machine pattern.
+The value type choice is let to the user but the key must be a String.
+In the future, the machine will be entirely generic.
+
+* build.sh    : compile sources
+* release.sh  : generate jar file
+* launch.sh   : launch sample
+* target/     : binaries and doc
+
