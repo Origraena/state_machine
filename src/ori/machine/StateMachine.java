@@ -10,6 +10,13 @@ public class StateMachine<E> implements Map<String,E> {
 	public static final int INIT_STATE_ID = 1;
 	public static final int DROP_STATE_ID = 0;
 
+	public StateMachine() {
+		_min = 0;
+		_max = 127;
+		_range = _max - _min +1;
+		init();
+	}
+
 	public StateMachine(char min, char max) {
 		_min = min;
 		_max = max;
@@ -37,7 +44,6 @@ public class StateMachine<E> implements Map<String,E> {
 	}
 
 	public E put(String key, E value) {
-		System.out.println("put("+key+","+value+")");
 		char key_c[] = key.toCharArray();
 		int[] curTrans;
 		int currentID, nextID, key_i, transitionID, i;
@@ -53,8 +59,6 @@ public class StateMachine<E> implements Map<String,E> {
 			nextID = _transitions.get(currentID)[transitionID];
 		} while ((nextID != DROP_STATE_ID) && (key_i < length));
 
-		System.out.println("nextID = "+nextID+" currentID = "+currentID);
-		System.out.println(this);
 
 		if (key_i == length) {
 			if (nextID != DROP_STATE_ID) {
@@ -64,8 +68,6 @@ public class StateMachine<E> implements Map<String,E> {
 			}
 		}
 
-		System.out.println("nextID = "+nextID+" currentID = "+currentID);
-		System.out.println(this);
 
 		for ( ; key_i < length /*- 1*/ ; key_i++) {
 			nextID = _states.size();
@@ -79,8 +81,6 @@ public class StateMachine<E> implements Map<String,E> {
 			currentID = nextID;
 		}
 
-		System.out.println("nextID = "+nextID+" currentID = "+currentID);
-		System.out.println(this);
 
 		old = null;
 		_states.add(new State(_states.size(),true,value));
@@ -91,7 +91,6 @@ public class StateMachine<E> implements Map<String,E> {
 		_transitions.add(curTrans);
 
 
-		System.out.println(this);
 
 		return old;
 	}
